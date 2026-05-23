@@ -11,7 +11,15 @@ const supabase = require('./db');
 const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'conn-secret-key-change-in-production';
+if (!process.env.JWT_SECRET) {
+  console.error('');
+  console.error('  ⚠️  FATAL: JWT_SECRET environment variable is required.');
+  console.error('  Generate a secure secret with:');
+  console.error('    node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+  console.error('');
+  process.exit(1);
+}
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 //LOGIN limiter
