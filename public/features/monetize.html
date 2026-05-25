@@ -23,6 +23,8 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script>(function(){if(localStorage.getItem("conn-color-mode")==="light"){document.documentElement.classList.add("light-mode");}}());</script>
+  <link rel="stylesheet" href="../css/light-mode.css">
 </head>
 
 <body>
@@ -31,7 +33,7 @@
   <div class="floating-orb orb-1"></div>
   <div class="floating-orb orb-2"></div>
 
-  <header class="navbar" id="navbar">
+<header class="navbar" id="navbar">
     <div class="navbar-inner"><a href="/" class="navbar-logo">
         <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -48,7 +50,6 @@
             </svg></button>
           <div class="mega-dropdown" id="megaDropdown">
             <div class="mega-dropdown-inner">
-              <!-- Category 1: Link in Bio + Tools -->
               <div class="mega-category">
                 <div class="mega-category-header">
                   <div class="mega-category-icon" style="--cat-color: #a855f7; --cat-bg: rgba(168,85,247,0.12)">
@@ -104,7 +105,6 @@
                 </a>
               </div>
           
-              <!-- Category 2: Manage Social Media -->
               <div class="mega-category">
                 <div class="mega-category-header">
                   <div class="mega-category-icon" style="--cat-color: #06b6d4; --cat-bg: rgba(6,182,212,0.12)">
@@ -156,7 +156,6 @@
                 </a>
               </div>
           
-              <!-- Category 3: Grow & Engage -->
               <div class="mega-category">
                 <div class="mega-category-header">
                   <div class="mega-category-icon" style="--cat-color: #22c55e; --cat-bg: rgba(34,197,94,0.12)">
@@ -210,7 +209,6 @@
                 </a>
               </div>
           
-              <!-- Category 4: Monetize -->
               <div class="mega-category">
                 <div class="mega-category-header">
                   <div class="mega-category-icon" style="--cat-color: #f97316; --cat-bg: rgba(249,115,22,0.12)">
@@ -264,7 +262,6 @@
                 </a>
               </div>
           
-              <!-- Category 5: Measure Success -->
               <div class="mega-category">
                 <div class="mega-category-header">
                   <div class="mega-category-icon" style="--cat-color: #ec4899; --cat-bg: rgba(236,72,153,0.12)">
@@ -317,7 +314,6 @@
                 </a>
               </div>
           
-              <!-- Dropdown CTA -->
               <div class="mega-cta">
                 <div class="mega-cta-content">
                   <span class="mega-cta-badge">✨ New</span>
@@ -329,7 +325,33 @@
               </div>
             </div>
           </div>
-        </div><a href="/#themes">Templates</a><a href="/#learn">Resources</a><a href="/#contact">Contact</a>
+        </div>
+        <a href="/#themes">Templates</a>
+        <a href="/#learn">Resources</a>
+        <a href="/#contact">Contact</a>
+        <button class="theme-toggle-btn" aria-label="Switch to light mode" title="Switch to light mode">
+          <span class="toggle-track">
+            <span class="toggle-icon toggle-icon-moon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </span>
+            <span class="toggle-icon toggle-icon-sun">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            </span>
+            <span class="toggle-thumb"></span>
+          </span>
+        </button>
       </nav>
       <div class="navbar-actions navbar-actions-guest" id="navGuest" style="display:none"><a href="/login"
           class="btn-nav btn-nav-ghost">Sign In</a><a href="/signup" class="btn-nav btn-nav-primary">Sign Up →</a></div>
@@ -604,6 +626,7 @@
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <script src="/js/features.js"></script>
+  <script src="../js/theme-toggle.js"></script>
 </body>
 
 </html>
