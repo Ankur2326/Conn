@@ -37,6 +37,13 @@
 
       btn.disabled = true;
       btn.textContent = "Signing in…";
+     btn.disabled = true;
+     btn.style.opacity = '0.7';
+     btn.style.cursor = 'not-allowed';
+          const btnContent = btn.querySelector('.btn-content');
+          const btnLoader = btn.querySelector('.btn-loader');
+          btnContent.style.display = 'none';
+          btnLoader.style.display = 'inline';
 
       try {
         const res = await fetch("/api/auth/login", {
@@ -50,6 +57,10 @@
           showError(data.error || "Login failed.");
           btn.disabled = false;
           btn.textContent = "Sign In";
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+          btnContent.style.display = 'flex';
+          btnLoader.style.display = 'none';
           return;
         }
 
@@ -58,6 +69,10 @@
         showError("Network error. Please try again.");
         btn.disabled = false;
         btn.textContent = "Sign In";
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btnContent.style.display = 'flex';
+        btnLoader.style.display = 'none';
       }
     });
   }
@@ -160,6 +175,58 @@
         }, 2000);
       });
     }
+  }
+
+  // ─── Copy Profile Link ───
+  function initCopyProfileBtn() {
+    const btn = document.getElementById('copyProfileBtn');
+    const preview = document.getElementById('usernamePreview');
+    if (!btn || !preview) return;
+
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      // Get the username from the preview
+      const username = preview.textContent;
+      if (!username || username === 'your-username') {
+        showError('Please enter a username first.');
+        return;
+      }
+
+      // Construct the profile URL using current origin
+      const profileUrl = `${window.location.origin}/u/${username}`;
+
+      try {
+        // Try using the modern Clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(profileUrl);
+        } else {
+          // Fallback for older browsers
+          const textarea = document.createElement('textarea');
+          textarea.value = profileUrl;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+
+        // Show "Copied!" feedback
+        const originalText = btn.textContent;
+        const originalBg = btn.style.background;
+        btn.textContent = 'Copied!';
+        btn.style.background = '#4ade80';
+
+        // Revert after 2 seconds
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = originalBg;
+        }, 2000);
+      } catch (err) {
+        showError('Failed to copy. Please try again.');
+      }
+    });
   }
 
   // ─── Signup ───
@@ -271,6 +338,13 @@
 
       btn.disabled = true;
       btn.textContent = "Creating account…";
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'not-allowed';
+      const btnContent = btn.querySelector('.btn-content');
+      const btnLoader = btn.querySelector('.btn-loader');
+
+btnContent.style.display = 'none';
+btnLoader.style.display = 'inline';
 
       try {
         const res = await fetch("/api/auth/register", {
@@ -284,6 +358,10 @@
           showError(data.error || "Registration failed.");
           btn.disabled = false;
           btn.textContent = "Create Account";
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+          btnContent.style.display = 'flex';
+          btnLoader.style.display = 'none';
           return;
         }
 
@@ -292,6 +370,10 @@
         showError("Network error. Please try again.");
         btn.disabled = false;
         btn.textContent = "Create Account";
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btnContent.style.display = 'flex';
+        btnLoader.style.display = 'none';
       }
     });
   }
@@ -394,5 +476,6 @@
     initSignup();
     initUsernameCheck();
     initGoogleAuth();
+    initCopyProfileBtn();
   });
 })();
