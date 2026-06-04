@@ -1862,7 +1862,18 @@
   }
 }
 
+@media (max-width: 768px) {
+  .navbar-links,
+  .navbar-actions,
+  #navGuest,
+  #navAuth {
+    display: none !important;
+  }
 
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
 
 
 
