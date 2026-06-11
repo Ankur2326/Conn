@@ -261,10 +261,11 @@
       if (profile.socials) {
         Object.entries(profile.socials).forEach(([platform, url]) => {
           if (!url || !SOCIAL_ICONS[platform]) return;
-          const finalUrl = platform === 'email' ? `mailto:${url}` : url;
+          const isUrl = url.startsWith('http://') || url.startsWith('https://');
+          const finalUrl = platform === 'email' ? (isUrl ? url : `mailto:${url}`) : url;
           const btn = document.createElement('a');
           btn.href = finalUrl;
-          btn.target = platform !== 'email' ? '_blank' : '';
+          btn.target = (platform !== 'email' || isUrl) ? '_blank' : '';
           btn.rel = 'noopener noreferrer';
           btn.className = 'social-icon-btn';
           btn.title = platform.charAt(0).toUpperCase() + platform.slice(1);
@@ -372,6 +373,26 @@
     div.textContent = str;
     return div.innerHTML;
   }
+
+  // --- Scroll Progress Indicator ---
+  window.addEventListener("scroll", () => {
+  const scrollTop = document.documentElement.scrollTop;
+
+  const scrollHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+  const scrollPercent =
+    (scrollTop / scrollHeight) * 100;
+
+  const progressBar =
+    document.getElementById("scroll-progress");
+
+  if (progressBar) {
+    progressBar.style.width = scrollPercent + "%";
+  }
+  });
+  // --- End Scroll Progress Indicator ---
 
   // ─── Init ───
   document.addEventListener('DOMContentLoaded', async () => {
